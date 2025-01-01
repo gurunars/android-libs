@@ -1,0 +1,7 @@
+package com.gurunars.flashcards.state_machine
+
+interface StateMachine<State, Event> {
+  val initialState: State
+  suspend fun nextState(currentState: State, event: Event?): State
+  suspend fun onError(currentState: State,  event: Event?, exception: Exception): State
+}
