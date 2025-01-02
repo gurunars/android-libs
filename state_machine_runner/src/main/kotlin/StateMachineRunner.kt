@@ -1,10 +1,10 @@
-package com.gurunars.flashcards.state_machine_runner
+package com.gurunars.android_libs.state_machine_runner
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gurunars.flashcards.state_machine.StateMachine
+import com.gurunars.android_libs.state_machine.StateMachine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

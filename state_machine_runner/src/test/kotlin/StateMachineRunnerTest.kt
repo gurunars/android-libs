@@ -1,1 +1,1 @@
-package com.gurunars.flashcards.states
+package com.gurunars.android_libs.states

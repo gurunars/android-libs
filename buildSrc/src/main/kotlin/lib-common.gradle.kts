@@ -70,8 +70,8 @@ dependencies {
   }
 
   test("junit:junit:4.13.2")
-  test("androidx.test.ext:junit-ktx:1.1.5")
-  test("androidx.test.ext:junit:1.1.5")
+  test("androidx.test.ext:junit-ktx:1.2.1")
+  test("androidx.test.ext:junit:1.2.1")
   test("com.google.truth:truth:1.1.3")
   test("android.arch.core:core-testing:1.1.1")
   test("org.jetbrains.kotlin:kotlin-test:1.1.51")

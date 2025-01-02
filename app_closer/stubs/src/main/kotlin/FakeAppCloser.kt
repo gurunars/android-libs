@@ -1,4 +1,4 @@
-package com.gurunars.flashcards.app_closer
+package com.gurunars.android_libs.app_closer
 
 import javax.inject.Inject
 import javax.inject.Singleton

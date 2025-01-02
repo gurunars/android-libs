@@ -1,4 +1,4 @@
-package com.gurunars.flashcards.state_machine
+package com.gurunars.android_libs.state_machine
 
 interface StateMachine<State, Event> {
   val initialState: State
