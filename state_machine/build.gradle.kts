@@ -1,5 +1,5 @@
 plugins {
-  id("app-common")
+  id("lib-common")
 }
 
 dependencies {

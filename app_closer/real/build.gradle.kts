@@ -1,7 +1,7 @@
 plugins {
-  id("app-common")
+  id("lib-common")
 }
 
 dependencies {
-  implementation(project(":libs:app_closer:abstraction"))
+  implementation(project(":app_closer:abstraction"))
 }

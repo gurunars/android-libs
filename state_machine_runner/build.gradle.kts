@@ -1,9 +1,9 @@
 plugins {
-  id("app-common")
+  id("lib-common")
 }
 
 dependencies {
-  val lifecycleVersion = "2.6.2"
+  val lifecycleVersion = "2.8.7"
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-  implementation(project(":libs:state_machine"))
+  implementation(project(":state_machine"))
 }
