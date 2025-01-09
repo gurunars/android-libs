@@ -1,5 +1,6 @@
 import groovy.util.Node
 import java.lang.StringBuilder
+import java.util.Base64
 
 plugins {
   id("com.android.library")
@@ -8,6 +9,7 @@ plugins {
   id("kotlin-parcelize")
   id("maven-publish")
   id("com.palantir.git-version")
+  signing
 }
 
 val name = project.projectDir.toString()
@@ -97,6 +99,8 @@ fun Node.n(name: String, inner: Node.() -> Unit) = appendNode(name).apply(inner)
 
 fun Node.n(name: String, inner: String) = appendNode(name, inner)
 
+fun v(name: String) = System.getenv(name)
+
 publishing {
   publications {
     create<MavenPublication>(name) {
@@ -130,9 +134,6 @@ publishing {
 
           n("dependencies") {
             for (dep in deps) {
-              if (dep.group == null || dep.name.isBlank() || dep.version == null) {
-                continue
-              }
               val group = if (dep.group == rootProject.name) topProjectName else dep.group
               val version = if (dep.version == "unspecified") libVersion else dep.version
 
@@ -148,11 +149,12 @@ publishing {
       }
     }
   }
+
   repositories {
     mavenLocal()
-    /*
-    maven {
-      url = uri("/Users/gurunars/Documents/maven")
-    }*/
   }
 }
+// Sign: https://central.sonatype.org/publish/requirements/gpg/
+// Publish: https://central.sonatype.org/publish/publish-portal-maven/
+// keyid: 5C60B47B2F29D3D8D2C9289A85536EA8D87A5AEF
+// Gradle: https://central.sonatype.org/publish/publish-gradle/
