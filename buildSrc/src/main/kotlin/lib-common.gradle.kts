@@ -1,6 +1,5 @@
 import groovy.util.Node
 import java.lang.StringBuilder
-import java.util.Base64
 
 plugins {
   id("com.android.library")
@@ -31,12 +30,6 @@ android {
   defaultConfig {
     minSdk = 31
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  testOptions {
-    unitTests {
-      isIncludeAndroidResources = true
-    }
   }
 
   compileOptions {
@@ -74,12 +67,12 @@ dependencies {
   test("junit:junit:4.13.2")
   test("androidx.test.ext:junit-ktx:1.2.1")
   test("androidx.test.ext:junit:1.2.1")
-  test("com.google.truth:truth:1.1.3")
+  test("com.google.truth:truth:1.4.0")
   test("android.arch.core:core-testing:1.1.1")
   test("org.jetbrains.kotlin:kotlin-test:1.1.51")
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1")
 
-  testImplementation("org.robolectric:robolectric:4.8")
+  testImplementation("org.robolectric:robolectric:4.11")
 
   val hiltVersion: String by rootProject.extra
 
@@ -95,11 +88,9 @@ dependencies {
 // Get from git tag
 val libVersion = gitVersion()
 
-fun Node.n(name: String, inner: Node.() -> Unit) = appendNode(name).apply(inner)
+fun Node.n(name: String, inner: Node.() -> Unit) { appendNode(name).apply(inner) }
 
-fun Node.n(name: String, inner: String) = appendNode(name, inner)
-
-fun v(name: String) = System.getenv(name)
+fun Node.n(name: String, inner: String) { appendNode(name, inner) }
 
 publishing {
   publications {
