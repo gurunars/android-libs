@@ -29,6 +29,7 @@ class StateMachineRunner<State, Event>(
   private var initialized = false
 
   val state: StateFlow<State> = _state
+  val events: StateFlow<Event?> = _events
 
   fun emit(event: Event) {
     viewModelScope.launch {

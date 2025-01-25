@@ -8,7 +8,11 @@ import androidx.activity.addCallback
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.gurunars.android_libs.state_machine.StateMachine
+import kotlinx.coroutines.launch
 
 abstract class StateMachineActivity<State, Event>: ComponentActivity() {
 
@@ -21,8 +25,27 @@ abstract class StateMachineActivity<State, Event>: ComponentActivity() {
         StateMachineRunnerFactory(stateMachine)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /** Handles side effect on activity level */
+    protected fun onEvent(event: Event) {
+
+    }
+
+    fun emit(event: Event) {
+        runner.emit(event)
+    }
+
+    final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                runner.events.collect { event ->
+                    if (event != null) {
+                        onEvent(event)
+                    }
+                }
+            }
+        }
 
         actionBar?.hide()
         setContent {
