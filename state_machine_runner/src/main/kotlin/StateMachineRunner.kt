@@ -1,5 +1,6 @@
 package com.gurunars.android_libs.state_machine_runner
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -33,6 +34,7 @@ class StateMachineRunner<State, Event>(
 
   fun emit(event: Event) {
     viewModelScope.launch {
+      Log.e("EMMIT", "EVENT $event")
       _events.emit(event)
     }
   }
