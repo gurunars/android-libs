@@ -25,23 +25,14 @@ abstract class StateMachineActivity<State, Event>: ComponentActivity() {
         StateMachineRunnerFactory(stateMachine)
     }
 
-    /** Handles side effect on activity level */
-    protected fun onEvent(event: Event) {
-
-    }
-
-    fun emit(event: Event) {
-        runner.emit(event)
-    }
-
-    final override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 runner.events.collect { event ->
                     if (event != null) {
-                        onEvent(event)
+                        runner.emit(event)
                     }
                 }
             }
