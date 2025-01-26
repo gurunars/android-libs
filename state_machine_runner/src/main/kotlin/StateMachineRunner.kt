@@ -33,6 +33,8 @@ class StateMachineRunner<State, Event>(
 
   fun emit(event: Event) {
     viewModelScope.launch {
+      // To dedup the event sequence
+      _events.emit(null)
       _events.emit(event)
     }
   }
@@ -46,8 +48,6 @@ class StateMachineRunner<State, Event>(
       _events.collect { event ->
         if (event != null) {
           process(event)
-          // To dedup the event sequence
-          _events.emit(null)
         }
       }
     }
