@@ -21,21 +21,27 @@ class StateMachineRunnerFactory<State, Event>(
 
 }
 
+/**
+ * This event wrapper is meant to deduplicate the event flow
+ * using a state hash code.
+ */
+private data class HashedEvent<Event>(
+  val stateHash: Int,
+  val event: Event
+)
+
 class StateMachineRunner<State, Event>(
   private val stateMachine: StateMachine<State, Event>,
 ): ViewModel() {
-  private val _events = MutableStateFlow<Event?>(null)
+  private val _events = MutableStateFlow<HashedEvent<Event>?>(null)
   private val _state = MutableStateFlow(stateMachine.initialState)
   private var initialized = false
 
   val state: StateFlow<State> = _state
-  val events: StateFlow<Event?> = _events
 
   fun emit(event: Event) {
     viewModelScope.launch {
-      // To dedup the event sequence
-      _events.emit(null)
-      _events.emit(event)
+      _events.emit(HashedEvent(_state.value.hashCode(), event))
     }
   }
 
@@ -45,9 +51,9 @@ class StateMachineRunner<State, Event>(
     }
     initialized = true
     viewModelScope.launch {
-      _events.collect { event ->
-        if (event != null) {
-          process(event)
+      _events.collect {
+        if (it != null) {
+          process(it.event)
         }
       }
     }
