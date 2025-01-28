@@ -30,9 +30,7 @@ abstract class StateMachineActivity<State, Event>: ComponentActivity() {
             if (state == stateMachine.endState) {
                 finish()
             }
-            Themed {
-                Content(state, runner::emit)
-            }
+            Content(state, runner::emit)
         }
 
         runner.init()
