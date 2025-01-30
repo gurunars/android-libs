@@ -28,7 +28,7 @@ android {
   namespace = "$topProjectName.$name"
 
   defaultConfig {
-    minSdk = 31
+    minSdk = 28
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
