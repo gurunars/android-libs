@@ -65,7 +65,7 @@ class StateMachineRunner<State, Event>(
   private suspend fun process(event: Event?) {
     var newState = nextState(event)
     while (newState != _state.value) {
-      _state.emit(newState)
+      _state.value = newState
       newState = nextState()
     }
   }
